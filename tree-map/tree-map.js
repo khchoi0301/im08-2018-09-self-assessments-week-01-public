@@ -31,25 +31,28 @@
 var Tree = function(value) {
   this.value = value;
   this.children = [];
-  // console.log(11,this)
 };
 
 
 Tree.prototype.addChild = function(child) {
   this.node = new Tree(child)
-  this.children.push(node)
-  // console.log(this)
+  this.children.push(this.node)
 };
 
 Tree.prototype.map = function (callback) {
-  return new Tree(callback(this.value))
+  this.nodes = new Tree(callback(this.value))
+  // console.log(this, this.nodes)
+  for (let i = 0; i < this.children.length; i++) {
+    if (this.children[i]) {
+      this.nodes.addChild(this.children[i])
+      this.nodes.children[i].map(callback)
+    }
+  }
+  
+  return this.nodes
   
 
-  // for (let i = 0; i < this.children.length; i++) {
-  //   if (this.children[i]) {
-  //     this.children[i].map(callback)
-  //   }
-  // }
+
   
 };
 
